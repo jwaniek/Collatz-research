@@ -7,24 +7,28 @@ public class Collatz
     public static void main(String args[]) {
         int n;
         Scanner scanner = new Scanner(System.in);
-        String command = scanner.nextLine();
-        boolean validCommand = command.equals("stop") || command.equals("iterate") || command.equals("block") || command.equals("factorise");
-
-        if (!validCommand) {
-            System.out.println("Command not valid");
-            return;
-        }
         
-        else {
-            System.out.print("n = ");
-            n = Integer.parseInt(scanner.nextLine());
+        while (true) {
+            String command = scanner.nextLine();
+            boolean validCommand = command.equals("stop") || command.equals("iterate") || command.equals("block") || command.equals("factorise");
+
+            if (!validCommand)
+                System.out.println("Command not valid");
+        
+            else if (command.equals("stop"))
+                break;
+
+            else {
+                System.out.print("n = ");
+                n = Integer.parseInt(scanner.nextLine());
             
-            if (command.equals("iterate"))
-                iterate(n, true);
-            else if (command.equals("block"))
-                block(n);
-            else if (command.equals("factorise"))
-                factorise(n);
+                if (command.equals("iterate"))
+                    iterate(n, true);
+                else if (command.equals("block"))
+                    block(n);
+                else if (command.equals("factorise"))
+                    factorise(n);
+            }
         }
 
         scanner.close();
