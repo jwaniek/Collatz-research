@@ -2,38 +2,58 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import javax.lang.model.util.ElementScanner6;
-
-/**
- * BLOCK/ITERATE NEEDS FIXING
- */
-
 public class Collatz
 {
     public static void main(String args[]) {
+        int n;
         Scanner scanner = new Scanner(System.in);
-        int l = Integer.parseInt(scanner.nextLine());
-        int[] facts = factorise(l);
+        String command = scanner.nextLine();
+        boolean validCommand = command.equals("stop") || command.equals("iterate") || command.equals("block") || command.equals("factorise");
 
-        System.out.println("Block: " + l + " -> " + block(l));
+        if (!validCommand) {
+            System.out.println("Command not valid");
+            return;
+        }
+        
+        else {
+            System.out.print("n = ");
+            n = Integer.parseInt(scanner.nextLine());
+            
+            if (command.equals("iterate"))
+                iterate(n, true);
+            else if (command.equals("block"))
+                block(n);
+            else if (command.equals("factorise"))
+                factorise(n);
+        }
 
         scanner.close();
     }
     
-    private static int iterate(int n) {
+    private static int iterate(int n, boolean print) {
+        if (print)
+            System.out.print("Iteration: " + n + " -> ");
+        
         if (isEven(n))
             n = n/2;
         else
             n = 3*n+1;
         
+        if (print)
+            System.out.print(n + "\n");
+
         return n;
     }
     
     private static int block(int n) {
+        System.out.print("Block: " + n + " -> ");
+
         do {
-            n = iterate(n);
+            n = iterate(n, false);
         }
         while (isEven(n));
+        
+        System.out.print(n + "\n");
 
         return n;
     }
